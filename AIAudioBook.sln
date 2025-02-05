@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{32809F19-C0C3-463A-8A02-03312CD2279A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerBook", "CrawlerBook\CrawlerBook.csproj", "{CCFA0C8E-B8C3-427D-A985-1ABFB5A08DD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{4148E7F8-D271-43C2-A998-49A4381EF844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioBookAPI", "AudioBookAPI\AudioBookAPI.csproj", "{040E78FD-33E0-4CA9-937A-F5DE86A5EF3F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEB", "WEB", "{F971AEDB-06AB-47A3-BAB0-31A6CCE9A6C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioBookWeb", "AudioBookWeb\AudioBookWeb.csproj", "{AE9E4234-C9C6-4C41-9EAB-A9E45FBCEC8C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCFA0C8E-B8C3-427D-A985-1ABFB5A08DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCFA0C8E-B8C3-427D-A985-1ABFB5A08DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCFA0C8E-B8C3-427D-A985-1ABFB5A08DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCFA0C8E-B8C3-427D-A985-1ABFB5A08DD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{040E78FD-33E0-4CA9-937A-F5DE86A5EF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{040E78FD-33E0-4CA9-937A-F5DE86A5EF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{040E78FD-33E0-4CA9-937A-F5DE86A5EF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{040E78FD-33E0-4CA9-937A-F5DE86A5EF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE9E4234-C9C6-4C41-9EAB-A9E45FBCEC8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE9E4234-C9C6-4C41-9EAB-A9E45FBCEC8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE9E4234-C9C6-4C41-9EAB-A9E45FBCEC8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE9E4234-C9C6-4C41-9EAB-A9E45FBCEC8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CCFA0C8E-B8C3-427D-A985-1ABFB5A08DD6} = {32809F19-C0C3-463A-8A02-03312CD2279A}
+		{040E78FD-33E0-4CA9-937A-F5DE86A5EF3F} = {4148E7F8-D271-43C2-A998-49A4381EF844}
+		{AE9E4234-C9C6-4C41-9EAB-A9E45FBCEC8C} = {F971AEDB-06AB-47A3-BAB0-31A6CCE9A6C0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E1193562-4F21-42F4-8BEF-B4E2623537D3}
+	EndGlobalSection
+EndGlobal
