@@ -1,0 +1,9 @@
+﻿{
+  "bookRequests": [
+    {
+      "name": "Tu La Đan Thần",
+      "urlChapterOfBook": "https://api.metruyenchu.vn/api/book/get-chapter-list-version-2/tu-la-dan-than/13",
+      "urlReaderBook": "https://metruyenchu.vn/tu-la-dan-than/"
+    }
+  ]
+}
