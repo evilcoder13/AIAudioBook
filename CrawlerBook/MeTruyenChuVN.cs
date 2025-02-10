@@ -27,6 +27,7 @@ namespace CrawlerBook
             HttpResponseMessage response;
             foreach (var bookrq in _lstBookRequest)
             {
+                if(bookrq.status) { continue; }
                 book = new Book();
                 book.name = bookrq.name;
                 book.urlReaderBook = bookrq.urlReaderBook;
@@ -73,23 +74,22 @@ namespace CrawlerBook
             string filePathSave = Path.Combine(folderPath, slug.slug + ".txt");
             string url = book.urlReaderBook + slug.slug;
 
+            string directoryPath = Path.GetDirectoryName(filePathSave);
+
+            if (Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            if (File.Exists(filePathSave) || File.Exists(filePathSave.Replace(".txt", "_rewrite.txt")))
+            {
+                return filePathSave;
+            }
+
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-
-                    string directoryPath = Path.GetDirectoryName(filePathSave);
-
-                    if (Directory.Exists(directoryPath))
-                    {
-                        Directory.CreateDirectory(directoryPath);
-                    }
-
-                    if (File.Exists(filePathSave))
-                    {
-                        return filePathSave;
-                    }
-
                     HttpResponseMessage response = await client.GetAsync(url);
                     response.EnsureSuccessStatusCode();
 
@@ -123,8 +123,14 @@ namespace CrawlerBook
             return filePathSave;
         }
 
-        public async Task RewriteChapter(string folderPath, string filePathRewrite)
+        public async Task RewriteChapter(string filePathRewrite)
         {
+            string filePathRewriteSave = filePathRewrite.Replace(".txt", "_rewrite.txt");
+            if(File.Exists(filePathRewriteSave))
+            {
+                return;
+            }
+
             string apiKey = "AIzaSyDBB4ielxkcTS8WRkyllool8OWLlEv3R6E";
             string apiUrl = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key={apiKey}";
             GemeniResponse gResponse;
@@ -139,7 +145,7 @@ namespace CrawlerBook
                         role = "user",
                         parts = new[]
                         {
-                            new { text = "viết lại nội dung bên dưới với câu từ chuẩn chỉ phong cách tiên hiệp" }
+                            new { text = "dùng chatgpt viết lại nội dung bên dưới với câu từ chuẩn chỉ phong cách tiên hiệp, đúng ý nghĩa gốc, dễ đọc, dễ hiểu" }
                         }
                     },
                     new
@@ -153,8 +159,6 @@ namespace CrawlerBook
                 }
             };
 
-            string filePathRewriteSave = filePathRewrite.Replace(".txt", "_rewrite.txt");
-
             using (HttpClient client = new HttpClient())
             {
                 var jsonRequest = JsonConvert.SerializeObject(requestBody);
@@ -165,18 +169,12 @@ namespace CrawlerBook
                 gResponse = JsonConvert.DeserializeObject<GemeniResponse>(responseString);
             }
 
-            if(!File.Exists(filePathRewriteSave))
+            using (StreamWriter writer = new StreamWriter(filePathRewriteSave))
             {
-                using (StreamWriter writer = new StreamWriter(filePathRewriteSave))
-                {
-                    writer.WriteLine(gResponse.Candidates[0].Content.Parts[0].Text);
-                }
-                Console.WriteLine("(" + Path.GetFileName(filePathRewriteSave) + ") rewrite chapter success");
+                writer.WriteLine(gResponse.Candidates[0].Content.Parts[0].Text);
             }
-            else
-            {
-                Console.WriteLine("(" + Path.GetFileName(filePathRewriteSave) + ") rewrite chapter existed");
-            }
+            Console.WriteLine("(" + Path.GetFileName(filePathRewriteSave) + ") rewrite chapter success");
+            File.Delete(filePathRewrite);
         }
 
         public async void Crawling()
@@ -188,8 +186,10 @@ namespace CrawlerBook
                 Console.WriteLine("Crawling book : " + book.name);
                 foreach (var chapter in book.chapters)
                 {
+                    Console.WriteLine("Handling chapter : " + chapter.name);
                     filePathSave = await SaveChapterHtmlToText(Path.Combine("OutputFiles", book.name), book, chapter);
-                    await RewriteChapter(Path.Combine("OutputFiles", book.name), filePathSave);
+                    await RewriteChapter(filePathSave);
+                    Console.WriteLine("Handling chapter success");
                 }
             }
         }

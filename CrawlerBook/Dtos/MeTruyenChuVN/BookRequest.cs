@@ -11,12 +11,6 @@ namespace CrawlerBook.Dtos.MeTruyenChuVN
         public string name {  get; set; }
         public string urlChapterOfBook { get; set; }
         public string urlReaderBook { get; set; }
-
-        public BookRequest(string name, string urlReaderBook, string urlChapterOfBook)
-        {
-            this.name = name;
-            this.urlReaderBook = urlReaderBook;
-            this.urlChapterOfBook = urlChapterOfBook;
-        }
+        public bool status { get; set; }
     }
 }
